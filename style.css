@@ -49,9 +49,17 @@ footer {
   padding: 10px 0;
 }
 
+figcaption {
+  color: #999;
+  font-style: italic;
+}
+
+.thing-we-did, img {
+  width: 500px;
+}
+
 .thing-we-did {
   background: #fff;
-  width: 500px;
   height: 500px;
   border: 2px solid #ccc;
   margin: 20px auto;
