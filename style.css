@@ -7,6 +7,12 @@ p, h1, footer, figcaption {
   padding: 10px 10px;
 }
 
+p {
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 50px;
+}
+
 .thing-we-did, img, canvas, body {
   width: 500px;
   margin: 0 auto;
@@ -63,15 +69,19 @@ img {
 }
 
 @media screen and (max-width: 500px) {
+  p {
+    margin-bottom: 20px;
+  }
+
   h1 {
     font-size: 40px;
   }
 
-  .thing-we-did, img, canvas, body  {
-    width: 100%;
+  figcaption, footer {
+    font-size: 14px;
   }
 
-  h3, figcaption, footer {
-    font-size: 14px;
+  .thing-we-did, img, canvas, body  {
+    width: 100%;
   }
 }
