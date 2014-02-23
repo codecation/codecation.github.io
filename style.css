@@ -4,7 +4,7 @@
 }
 
 html {
-  background: #fff;
+  background: #eee;
   color: #000;
 }
 
@@ -30,13 +30,20 @@ h3 {
 }
 
 a {
-  color: #faa;
+  text-decoration: none;
+  color: #44f;
+}
+
+footer {
+  color: #aaa;
+  font-size: 15px;
+  padding: 10px 0;
 }
 
 .thing-we-did {
   background: #fff;
   width: 500px;
   height: 500px;
-  border: 5px solid #ddd;
+  border: 2px solid #ccc;
   margin: 10px auto;
 }
