@@ -51,9 +51,12 @@ footer {
 
 figcaption {
   color: #999;
-  font-style: italic;
   font-size: 16px;
   padding: 0 10px;
+}
+
+figcaption span {
+  font-weight: bold;
 }
 
 img {
