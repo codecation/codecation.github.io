@@ -21,6 +21,7 @@ h1, h2, h3 {
 h1 {
   font-family: monospace;
   font-size: 70px;
+  padding-bottom: 20px;
 }
 
 h2 {
@@ -52,6 +53,7 @@ figcaption {
   color: #999;
   font-style: italic;
   font-size: 16px;
+  padding: 0 10px;
 }
 
 img {
@@ -70,7 +72,7 @@ img {
 
 @media screen and (max-width: 500px) {
   h1 {
-    font-size: 50px;
+    font-size: 40px;
   }
 
   .thing-we-did, img, canvas {
@@ -84,11 +86,8 @@ img {
     border-right: 0;
   }
 
-  h3, figcaption {
+  h3, figcaption, footer {
     font-size: 14px;
-  }
-
-  footer {
-    font-size: 13px;
+    padding: 0 10px;
   }
 }
