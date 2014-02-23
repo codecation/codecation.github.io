@@ -1,0 +1,42 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  background: #fff;
+  color: #000;
+}
+
+body {
+  font-family: sans-serif;
+  width: 500px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+h1, h2, h3 {
+  padding: 5px 0;
+}
+
+h2 {
+  font-size: 25px;
+  color: #333;
+}
+
+h3 {
+  font-size: 15px;
+  color: #999;
+}
+
+a {
+  color: #faa;
+}
+
+.thing-we-did {
+  background: #fff;
+  width: 500px;
+  height: 500px;
+  border: 5px solid #ddd;
+  margin: 10px auto;
+}
