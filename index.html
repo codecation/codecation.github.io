@@ -9,10 +9,25 @@
     <h1>Costa Rica</h1>
 
     <img class='thing-we-did' src='photos/01.jpg' />
+
+    <h2>Yet another game of life.</h2>
+    <h3>
+      But this one's in ClojureScript! Check out the
+      <a target='_blank'
+         href='https://github.com/costa-rica/game-of-life'>source</a>
+    </h3>
+
+    <div class='thing-we-did'>
+      <canvas id='game-of-life-canvas'></canvas>
+    </div>
+
     <img class='thing-we-did' src='photos/02.jpg' />
     <img class='thing-we-did' src='photos/03.jpg' />
     <img class='thing-we-did' src='photos/04.jpg' />
     <img class='thing-we-did' src='photos/05.jpg' />
     <img class='thing-we-did' src='photos/06.jpg' />
+
+    <script src="game-of-life/main.js"></script>
+    <script>game_of_life.draw.start_random();</script>
   </body>
 </html>
