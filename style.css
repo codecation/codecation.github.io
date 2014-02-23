@@ -19,6 +19,11 @@ h1, h2, h3 {
   padding: 5px 0;
 }
 
+h1 {
+  font-family: monospace;
+  font-size: 80px;
+}
+
 h2 {
   font-size: 25px;
   color: #333;
@@ -30,12 +35,16 @@ h3 {
 }
 
 a {
-  text-decoration: none;
-  color: #44f;
+  color: #777;
+}
+
+a:hover {
+  color: #111;
 }
 
 footer {
   color: #aaa;
+  font-style: italic;
   font-size: 15px;
   padding: 10px 0;
 }
@@ -45,5 +54,5 @@ footer {
   width: 500px;
   height: 500px;
   border: 2px solid #ccc;
-  margin: 10px auto;
+  margin: 20px auto;
 }
