@@ -10,7 +10,6 @@ html {
 
 body {
   font-family: sans-serif;
-  width: 500px;
   margin: 20px auto;
   text-align: center;
 }
@@ -30,7 +29,7 @@ h2 {
 }
 
 h3 {
-  font-size: 15px;
+  font-size: 16px;
   color: #999;
 }
 
@@ -52,15 +51,44 @@ footer {
 figcaption {
   color: #999;
   font-style: italic;
+  font-size: 16px;
 }
 
-.thing-we-did, img {
+img {
+  display: block;
+}
+
+.thing-we-did, img, canvas {
   width: 500px;
 }
 
 .thing-we-did {
   background: #fff;
-  height: 500px;
   border: 2px solid #ccc;
   margin: 20px auto;
+}
+
+@media screen and (max-width: 500px) {
+  h1 {
+    font-size: 50px;
+  }
+
+  .thing-we-did, img, canvas {
+    width: 100%;
+  }
+
+  .thing-we-did {
+    border-top: 2px solid #ccc;
+    border-bottom: 2px solid #ccc;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  h3, figcaption {
+    font-size: 14px;
+  }
+
+  footer {
+    font-size: 13px;
+  }
 }
