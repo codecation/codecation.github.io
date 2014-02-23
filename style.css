@@ -3,35 +3,32 @@
   margin: 0;
 }
 
+p, h1, footer, figcaption {
+  padding: 10px 10px;
+}
+
+.thing-we-did, img, canvas, body {
+  width: 500px;
+  margin: 0 auto;
+}
+
 html {
   background: #eee;
   color: #000;
 }
 
 body {
+  color: #999;
   font-family: sans-serif;
+  font-size: 16px;
   margin: 20px auto;
   text-align: center;
 }
 
-h1, h2, h3 {
-  padding: 5px 0;
-}
-
 h1 {
+  color: #111;
   font-family: monospace;
   font-size: 70px;
-  padding-bottom: 20px;
-}
-
-h2 {
-  font-size: 25px;
-  color: #333;
-}
-
-h3 {
-  font-size: 16px;
-  color: #999;
 }
 
 a {
@@ -43,16 +40,8 @@ a:hover {
 }
 
 footer {
-  color: #aaa;
   font-style: italic;
-  font-size: 15px;
-  padding: 10px 0;
-}
-
-figcaption {
-  color: #999;
-  font-size: 16px;
-  padding: 0 10px;
+  border-top: 2px solid #ccc;
 }
 
 figcaption span {
@@ -63,14 +52,11 @@ img {
   display: block;
 }
 
-.thing-we-did, img, canvas {
-  width: 500px;
-}
-
 .thing-we-did {
   background: #fff;
-  border: 2px solid #ccc;
-  margin: 20px auto;
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+  margin: 10px auto;
 }
 
 @media screen and (max-width: 500px) {
@@ -78,19 +64,11 @@ img {
     font-size: 40px;
   }
 
-  .thing-we-did, img, canvas {
+  .thing-we-did, img, canvas, body  {
     width: 100%;
-  }
-
-  .thing-we-did {
-    border-top: 2px solid #ccc;
-    border-bottom: 2px solid #ccc;
-    border-left: 0;
-    border-right: 0;
   }
 
   h3, figcaption, footer {
     font-size: 14px;
-    padding: 0 10px;
   }
 }
