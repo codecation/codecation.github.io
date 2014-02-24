@@ -23878,7 +23878,7 @@ maze.core.generate_maze = function generate_maze(p__4851) {
     break;
   }
 };
-maze.core.delay_between_iterations = 20;
+maze.core.delay_between_iterations = 50;
 maze.core.solve_maze = function solve_maze(p__4856) {
   var map__4858 = p__4856;
   var map__4858__$1 = cljs.core.seq_QMARK_.call(null, map__4858) ? cljs.core.apply.call(null, cljs.core.hash_map, map__4858) : map__4858;
