@@ -3,21 +3,6 @@
   margin: 0;
 }
 
-p, h1, footer, figcaption {
-  padding: 10px 10px;
-}
-
-p {
-  border-top: 2px solid #ddd;
-  border-bottom: 2px solid #ddd;
-  margin-bottom: 50px;
-}
-
-.thing-we-did, img, canvas, body {
-  width: 500px;
-  margin: 0 auto;
-}
-
 html {
   background: #eee;
   color: #000;
@@ -27,14 +12,27 @@ body {
   color: #999;
   font-family: sans-serif;
   font-size: 16px;
-  margin: 20px auto;
   text-align: center;
+}
+
+p, h1, footer, figcaption {
+  padding: 10px 10px;
+}
+
+p, footer, .thing-we-did {
+  border-top: 2px solid #ddd;
+  border-bottom: 2px solid #ddd;
+}
+
+.thing-we-did, img, canvas, body {
+  width: 500px;
+  margin: 10px auto;
 }
 
 h1 {
   color: #111;
   font-family: monospace;
-  font-size: 70px;
+  font-size: 65px;
 }
 
 a {
@@ -45,12 +43,17 @@ a:hover {
   color: #111;
 }
 
+p {
+  margin-bottom: 20px;
+}
+
 footer {
   color: #bbb;
-  font-style: italic;
-  border-top: 2px solid #ddd;
-  border-bottom: 2px solid #ddd;
-  margin-top: 50px;
+  margin-top: 20px;
+}
+
+footer a {
+  color: #999;
 }
 
 figcaption span {
@@ -61,18 +64,7 @@ img {
   display: block;
 }
 
-.thing-we-did {
-  background: #fff;
-  border-top: 2px solid #ddd;
-  border-bottom: 2px solid #ddd;
-  margin: 10px auto;
-}
-
 @media screen and (max-width: 500px) {
-  p {
-    margin-bottom: 20px;
-  }
-
   h1 {
     font-size: 40px;
   }
