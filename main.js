@@ -23164,6 +23164,190 @@ game_of_life.game.should_live_QMARK_ = function should_live_QMARK_(living_cells,
 game_of_life.game.advance = function advance(living_cells) {
   return cljs.core.set.call(null, cljs.core.map.call(null, cljs.core.first, cljs.core.filter.call(null, cljs.core.partial.call(null, game_of_life.game.should_live_QMARK_, living_cells), cljs.core.frequencies.call(null, cljs.core.mapcat.call(null, game_of_life.game.neighbors, living_cells)))));
 };
+goog.provide("maze.draw");
+goog.require("cljs.core");
+maze.draw.maze_size = 20;
+maze.draw.cell_size_in_pixels = 25;
+maze.draw.maze_size_in_pixels = maze.draw.maze_size * maze.draw.cell_size_in_pixels;
+maze.draw.wall_width_in_pixels = 2;
+maze.draw.make_context = function make_context() {
+  var canvas = document.getElementById("maze-canvas");
+  var context = canvas.getContext("2d");
+  canvas.width = maze.draw.maze_size_in_pixels;
+  canvas.height = maze.draw.maze_size_in_pixels;
+  context.fillStyle = "rgb(0, 0, 0)";
+  context.lineWidth = maze.draw.wall_width_in_pixels;
+  return context;
+};
+maze.draw.line = function line(p__4859) {
+  var vec__4864 = p__4859;
+  var vec__4865 = cljs.core.nth.call(null, vec__4864, 0, null);
+  var x1 = cljs.core.nth.call(null, vec__4865, 0, null);
+  var y1 = cljs.core.nth.call(null, vec__4865, 1, null);
+  var vec__4866 = cljs.core.nth.call(null, vec__4864, 1, null);
+  var x2 = cljs.core.nth.call(null, vec__4866, 0, null);
+  var y2 = cljs.core.nth.call(null, vec__4866, 1, null);
+  var start_point_x = function() {
+    var x__3710__auto__ = x1;
+    var y__3711__auto__ = x2;
+    return x__3710__auto__ > y__3711__auto__ ? x__3710__auto__ : y__3711__auto__;
+  }();
+  var start_point_y = function() {
+    var x__3710__auto__ = y1;
+    var y__3711__auto__ = y2;
+    return x__3710__auto__ > y__3711__auto__ ? x__3710__auto__ : y__3711__auto__;
+  }();
+  var cells_horizontally_adjacent_QMARK_ = cljs.core._EQ_.call(null, x1, x2);
+  var vec__4867 = cells_horizontally_adjacent_QMARK_ ? new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [start_point_x + 1, start_point_y], null) : new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [start_point_x, start_point_y + 1], null);
+  var end_point_x = cljs.core.nth.call(null, vec__4867, 0, null);
+  var end_point_y = cljs.core.nth.call(null, vec__4867, 1, null);
+  return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "x1", "x1", 1013908011), start_point_x, new cljs.core.Keyword(null, "y1", "y1", 1013908042), start_point_y, new cljs.core.Keyword(null, "x2", "x2", 1013908012), end_point_x, new cljs.core.Keyword(null, "y2", "y2", 1013908043), end_point_y], null);
+};
+maze.draw.draw_line = function draw_line(p__4868, context) {
+  var map__4871 = p__4868;
+  var map__4871__$1 = cljs.core.seq_QMARK_.call(null, map__4871) ? cljs.core.apply.call(null, cljs.core.hash_map, map__4871) : map__4871;
+  var y2 = cljs.core.get.call(null, map__4871__$1, new cljs.core.Keyword(null, "y2", "y2", 1013908043));
+  var x2 = cljs.core.get.call(null, map__4871__$1, new cljs.core.Keyword(null, "x2", "x2", 1013908012));
+  var y1 = cljs.core.get.call(null, map__4871__$1, new cljs.core.Keyword(null, "y1", "y1", 1013908042));
+  var x1 = cljs.core.get.call(null, map__4871__$1, new cljs.core.Keyword(null, "x1", "x1", 1013908011));
+  var G__4872 = context;
+  G__4872.beginPath();
+  G__4872.moveTo(x1 * maze.draw.cell_size_in_pixels, y1 * maze.draw.cell_size_in_pixels);
+  G__4872.lineTo(x2 * maze.draw.cell_size_in_pixels, y2 * maze.draw.cell_size_in_pixels);
+  G__4872.stroke();
+  return G__4872;
+};
+maze.draw.set_draw_color = function set_draw_color(color, context) {
+  return context.fillStyle = color;
+};
+maze.draw.draw_walls = function draw_walls(walls, context) {
+  var lines = cljs.core.map.call(null, maze.draw.line, cljs.core.map.call(null, cljs.core.seq, walls));
+  var seq__4877 = cljs.core.seq.call(null, lines);
+  var chunk__4878 = null;
+  var count__4879 = 0;
+  var i__4880 = 0;
+  while (true) {
+    if (i__4880 < count__4879) {
+      var line = cljs.core._nth.call(null, chunk__4878, i__4880);
+      maze.draw.draw_line.call(null, line, context);
+      var G__4881 = seq__4877;
+      var G__4882 = chunk__4878;
+      var G__4883 = count__4879;
+      var G__4884 = i__4880 + 1;
+      seq__4877 = G__4881;
+      chunk__4878 = G__4882;
+      count__4879 = G__4883;
+      i__4880 = G__4884;
+      continue;
+    } else {
+      var temp__4092__auto__ = cljs.core.seq.call(null, seq__4877);
+      if (temp__4092__auto__) {
+        var seq__4877__$1 = temp__4092__auto__;
+        if (cljs.core.chunked_seq_QMARK_.call(null, seq__4877__$1)) {
+          var c__4151__auto__ = cljs.core.chunk_first.call(null, seq__4877__$1);
+          var G__4885 = cljs.core.chunk_rest.call(null, seq__4877__$1);
+          var G__4886 = c__4151__auto__;
+          var G__4887 = cljs.core.count.call(null, c__4151__auto__);
+          var G__4888 = 0;
+          seq__4877 = G__4885;
+          chunk__4878 = G__4886;
+          count__4879 = G__4887;
+          i__4880 = G__4888;
+          continue;
+        } else {
+          var line = cljs.core.first.call(null, seq__4877__$1);
+          maze.draw.draw_line.call(null, line, context);
+          var G__4889 = cljs.core.next.call(null, seq__4877__$1);
+          var G__4890 = null;
+          var G__4891 = 0;
+          var G__4892 = 0;
+          seq__4877 = G__4889;
+          chunk__4878 = G__4890;
+          count__4879 = G__4891;
+          i__4880 = G__4892;
+          continue;
+        }
+      } else {
+        return null;
+      }
+    }
+    break;
+  }
+};
+maze.draw.fill_location = function fill_location(p__4893, context) {
+  var vec__4895 = p__4893;
+  var x = cljs.core.nth.call(null, vec__4895, 0, null);
+  var y = cljs.core.nth.call(null, vec__4895, 1, null);
+  return context.fillRect(x * maze.draw.cell_size_in_pixels, y * maze.draw.cell_size_in_pixels, maze.draw.cell_size_in_pixels, maze.draw.cell_size_in_pixels);
+};
+maze.draw.draw_locations = function draw_locations(locations, context) {
+  var seq__4900 = cljs.core.seq.call(null, locations);
+  var chunk__4901 = null;
+  var count__4902 = 0;
+  var i__4903 = 0;
+  while (true) {
+    if (i__4903 < count__4902) {
+      var location = cljs.core._nth.call(null, chunk__4901, i__4903);
+      maze.draw.fill_location.call(null, location, context);
+      var G__4904 = seq__4900;
+      var G__4905 = chunk__4901;
+      var G__4906 = count__4902;
+      var G__4907 = i__4903 + 1;
+      seq__4900 = G__4904;
+      chunk__4901 = G__4905;
+      count__4902 = G__4906;
+      i__4903 = G__4907;
+      continue;
+    } else {
+      var temp__4092__auto__ = cljs.core.seq.call(null, seq__4900);
+      if (temp__4092__auto__) {
+        var seq__4900__$1 = temp__4092__auto__;
+        if (cljs.core.chunked_seq_QMARK_.call(null, seq__4900__$1)) {
+          var c__4151__auto__ = cljs.core.chunk_first.call(null, seq__4900__$1);
+          var G__4908 = cljs.core.chunk_rest.call(null, seq__4900__$1);
+          var G__4909 = c__4151__auto__;
+          var G__4910 = cljs.core.count.call(null, c__4151__auto__);
+          var G__4911 = 0;
+          seq__4900 = G__4908;
+          chunk__4901 = G__4909;
+          count__4902 = G__4910;
+          i__4903 = G__4911;
+          continue;
+        } else {
+          var location = cljs.core.first.call(null, seq__4900__$1);
+          maze.draw.fill_location.call(null, location, context);
+          var G__4912 = cljs.core.next.call(null, seq__4900__$1);
+          var G__4913 = null;
+          var G__4914 = 0;
+          var G__4915 = 0;
+          seq__4900 = G__4912;
+          chunk__4901 = G__4913;
+          count__4902 = G__4914;
+          i__4903 = G__4915;
+          continue;
+        }
+      } else {
+        return null;
+      }
+    }
+    break;
+  }
+};
+maze.draw.update_canvas = function update_canvas(context, p__4916) {
+  var map__4918 = p__4916;
+  var map__4918__$1 = cljs.core.seq_QMARK_.call(null, map__4918) ? cljs.core.apply.call(null, cljs.core.hash_map, map__4918) : map__4918;
+  var path = cljs.core.get.call(null, map__4918__$1, new cljs.core.Keyword(null, "path", "path", 1017337751));
+  var visited = cljs.core.get.call(null, map__4918__$1, new cljs.core.Keyword(null, "visited", "visited", 1480664732));
+  var walls = cljs.core.get.call(null, map__4918__$1, new cljs.core.Keyword(null, "walls", "walls", 1126800219));
+  maze.draw.set_draw_color.call(null, "rgb(255, 180, 180)", context);
+  maze.draw.draw_locations.call(null, visited, context);
+  maze.draw.set_draw_color.call(null, "rgb(180, 255, 180)", context);
+  maze.draw.draw_locations.call(null, path, context);
+  maze.draw.set_draw_color.call(null, "rgb(100, 255, 100)", context);
+  maze.draw.draw_locations.call(null, new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.peek.call(null, path)], null), context);
+  maze.draw.set_draw_color.call(null, "rgb(0,0,0)", context);
+  return maze.draw.draw_walls.call(null, walls, context);
+};
 goog.provide("clojure.set");
 goog.require("cljs.core");
 clojure.set.bubble_max_key = function bubble_max_key(k, coll) {
@@ -23473,45 +23657,47 @@ clojure.set.superset_QMARK_ = function superset_QMARK_(set1, set2) {
 goog.provide("maze.core");
 goog.require("cljs.core");
 goog.require("clojure.set");
-maze.core.neighbors = function neighbors(p__4769) {
-  var vec__4777 = p__4769;
-  var x = cljs.core.nth.call(null, vec__4777, 0, null);
-  var y = cljs.core.nth.call(null, vec__4777, 1, null);
+goog.require("maze.draw");
+goog.require("maze.draw");
+maze.core.neighbors = function neighbors(p__4805) {
+  var vec__4813 = p__4805;
+  var x = cljs.core.nth.call(null, vec__4813, 0, null);
+  var y = cljs.core.nth.call(null, vec__4813, 1, null);
   return cljs.core.set.call(null, function() {
-    var iter__4120__auto__ = function iter__4778(s__4779) {
+    var iter__4120__auto__ = function iter__4814(s__4815) {
       return new cljs.core.LazySeq(null, function() {
-        var s__4779__$1 = s__4779;
+        var s__4815__$1 = s__4815;
         while (true) {
-          var temp__4092__auto__ = cljs.core.seq.call(null, s__4779__$1);
+          var temp__4092__auto__ = cljs.core.seq.call(null, s__4815__$1);
           if (temp__4092__auto__) {
             var xs__4579__auto__ = temp__4092__auto__;
             var dx = cljs.core.first.call(null, xs__4579__auto__);
-            var iterys__4116__auto__ = function(s__4779__$1, dx, xs__4579__auto__, temp__4092__auto__) {
-              return function iter__4780(s__4781) {
-                return new cljs.core.LazySeq(null, function(s__4779__$1, dx, xs__4579__auto__, temp__4092__auto__) {
+            var iterys__4116__auto__ = function(s__4815__$1, dx, xs__4579__auto__, temp__4092__auto__) {
+              return function iter__4816(s__4817) {
+                return new cljs.core.LazySeq(null, function(s__4815__$1, dx, xs__4579__auto__, temp__4092__auto__) {
                   return function() {
-                    var s__4781__$1 = s__4781;
+                    var s__4817__$1 = s__4817;
                     while (true) {
-                      var temp__4092__auto____$1 = cljs.core.seq.call(null, s__4781__$1);
+                      var temp__4092__auto____$1 = cljs.core.seq.call(null, s__4817__$1);
                       if (temp__4092__auto____$1) {
-                        var s__4781__$2 = temp__4092__auto____$1;
-                        if (cljs.core.chunked_seq_QMARK_.call(null, s__4781__$2)) {
-                          var c__4118__auto__ = cljs.core.chunk_first.call(null, s__4781__$2);
+                        var s__4817__$2 = temp__4092__auto____$1;
+                        if (cljs.core.chunked_seq_QMARK_.call(null, s__4817__$2)) {
+                          var c__4118__auto__ = cljs.core.chunk_first.call(null, s__4817__$2);
                           var size__4119__auto__ = cljs.core.count.call(null, c__4118__auto__);
-                          var b__4783 = cljs.core.chunk_buffer.call(null, size__4119__auto__);
+                          var b__4819 = cljs.core.chunk_buffer.call(null, size__4119__auto__);
                           if (function() {
-                            var i__4782 = 0;
+                            var i__4818 = 0;
                             while (true) {
-                              if (i__4782 < size__4119__auto__) {
-                                var dy = cljs.core._nth.call(null, c__4118__auto__, i__4782);
+                              if (i__4818 < size__4119__auto__) {
+                                var dy = cljs.core._nth.call(null, c__4118__auto__, i__4818);
                                 if (cljs.core.not_EQ_.call(null, Math.abs(dx), Math.abs(dy))) {
-                                  cljs.core.chunk_append.call(null, b__4783, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x + dx, y + dy], null));
-                                  var G__4784 = i__4782 + 1;
-                                  i__4782 = G__4784;
+                                  cljs.core.chunk_append.call(null, b__4819, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x + dx, y + dy], null));
+                                  var G__4820 = i__4818 + 1;
+                                  i__4818 = G__4820;
                                   continue;
                                 } else {
-                                  var G__4785 = i__4782 + 1;
-                                  i__4782 = G__4785;
+                                  var G__4821 = i__4818 + 1;
+                                  i__4818 = G__4821;
                                   continue;
                                 }
                               } else {
@@ -23520,17 +23706,17 @@ maze.core.neighbors = function neighbors(p__4769) {
                               break;
                             }
                           }()) {
-                            return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__4783), iter__4780.call(null, cljs.core.chunk_rest.call(null, s__4781__$2)));
+                            return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__4819), iter__4816.call(null, cljs.core.chunk_rest.call(null, s__4817__$2)));
                           } else {
-                            return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__4783), null);
+                            return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__4819), null);
                           }
                         } else {
-                          var dy = cljs.core.first.call(null, s__4781__$2);
+                          var dy = cljs.core.first.call(null, s__4817__$2);
                           if (cljs.core.not_EQ_.call(null, Math.abs(dx), Math.abs(dy))) {
-                            return cljs.core.cons.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x + dx, y + dy], null), iter__4780.call(null, cljs.core.rest.call(null, s__4781__$2)));
+                            return cljs.core.cons.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x + dx, y + dy], null), iter__4816.call(null, cljs.core.rest.call(null, s__4817__$2)));
                           } else {
-                            var G__4786 = cljs.core.rest.call(null, s__4781__$2);
-                            s__4781__$1 = G__4786;
+                            var G__4822 = cljs.core.rest.call(null, s__4817__$2);
+                            s__4817__$1 = G__4822;
                             continue;
                           }
                         }
@@ -23540,15 +23726,15 @@ maze.core.neighbors = function neighbors(p__4769) {
                       break;
                     }
                   };
-                }(s__4779__$1, dx, xs__4579__auto__, temp__4092__auto__), null, null);
+                }(s__4815__$1, dx, xs__4579__auto__, temp__4092__auto__), null, null);
               };
-            }(s__4779__$1, dx, xs__4579__auto__, temp__4092__auto__);
+            }(s__4815__$1, dx, xs__4579__auto__, temp__4092__auto__);
             var fs__4117__auto__ = cljs.core.seq.call(null, iterys__4116__auto__.call(null, new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [-1, 0, 1], null)));
             if (fs__4117__auto__) {
-              return cljs.core.concat.call(null, fs__4117__auto__, iter__4778.call(null, cljs.core.rest.call(null, s__4779__$1)));
+              return cljs.core.concat.call(null, fs__4117__auto__, iter__4814.call(null, cljs.core.rest.call(null, s__4815__$1)));
             } else {
-              var G__4787 = cljs.core.rest.call(null, s__4779__$1);
-              s__4779__$1 = G__4787;
+              var G__4823 = cljs.core.rest.call(null, s__4815__$1);
+              s__4815__$1 = G__4823;
               continue;
             }
           } else {
@@ -23561,53 +23747,60 @@ maze.core.neighbors = function neighbors(p__4769) {
     return iter__4120__auto__.call(null, new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [-1, 0, 1], null));
   }());
 };
-maze.core.visitable_neighbors = function visitable_neighbors(location, visited, size) {
-  var outside_bounds_QMARK_ = function outside_bounds_QMARK_(p__4798) {
-    var vec__4800 = p__4798;
-    var x = cljs.core.nth.call(null, vec__4800, 0, null);
-    var y = cljs.core.nth.call(null, vec__4800, 1, null);
-    return cljs.core.some_fn.call(null, cljs.core.neg_QMARK_, function(p1__4788_SHARP_) {
-      return p1__4788_SHARP_ > size - 1;
+maze.core.unvisited_neighbors = function unvisited_neighbors(location, visited, size) {
+  var outside_bounds_QMARK_ = function outside_bounds_QMARK_(p__4834) {
+    var vec__4836 = p__4834;
+    var x = cljs.core.nth.call(null, vec__4836, 0, null);
+    var y = cljs.core.nth.call(null, vec__4836, 1, null);
+    return cljs.core.some_fn.call(null, cljs.core.neg_QMARK_, function(p1__4824_SHARP_) {
+      return p1__4824_SHARP_ > size - 1;
     }).call(null, x, y);
   };
   return cljs.core.set.call(null, cljs.core.remove.call(null, visited, cljs.core.remove.call(null, outside_bounds_QMARK_, maze.core.neighbors.call(null, location))));
 };
+maze.core.blocked_by_wall_QMARK_ = function blocked_by_wall_QMARK_(current_location, walls, neighbor) {
+  return walls.call(null, cljs.core.PersistentHashSet.fromArray([neighbor, current_location], true));
+};
+maze.core.reachable_neighbors = function reachable_neighbors(location, visited, walls, size) {
+  var within_maze_and_unvisited = maze.core.unvisited_neighbors.call(null, location, visited, size);
+  return cljs.core.set.call(null, cljs.core.remove.call(null, cljs.core.partial.call(null, maze.core.blocked_by_wall_QMARK_, location, walls), within_maze_and_unvisited));
+};
 maze.core.random_visitable_neighbor = function random_visitable_neighbor(location, visited, size) {
-  return cljs.core.rand_nth.call(null, cljs.core.seq.call(null, maze.core.visitable_neighbors.call(null, location, visited, size)));
+  return cljs.core.rand_nth.call(null, cljs.core.seq.call(null, maze.core.unvisited_neighbors.call(null, location, visited, size)));
 };
 maze.core.walls = function walls(grid, doors) {
   return clojure.set.difference.call(null, grid, doors);
 };
 maze.core.all_locations = function all_locations(size) {
-  var iter__4120__auto__ = function iter__4807(s__4808) {
+  var iter__4120__auto__ = function iter__4843(s__4844) {
     return new cljs.core.LazySeq(null, function() {
-      var s__4808__$1 = s__4808;
+      var s__4844__$1 = s__4844;
       while (true) {
-        var temp__4092__auto__ = cljs.core.seq.call(null, s__4808__$1);
+        var temp__4092__auto__ = cljs.core.seq.call(null, s__4844__$1);
         if (temp__4092__auto__) {
           var xs__4579__auto__ = temp__4092__auto__;
           var x = cljs.core.first.call(null, xs__4579__auto__);
-          var iterys__4116__auto__ = function(s__4808__$1, x, xs__4579__auto__, temp__4092__auto__) {
-            return function iter__4809(s__4810) {
-              return new cljs.core.LazySeq(null, function(s__4808__$1, x, xs__4579__auto__, temp__4092__auto__) {
+          var iterys__4116__auto__ = function(s__4844__$1, x, xs__4579__auto__, temp__4092__auto__) {
+            return function iter__4845(s__4846) {
+              return new cljs.core.LazySeq(null, function(s__4844__$1, x, xs__4579__auto__, temp__4092__auto__) {
                 return function() {
-                  var s__4810__$1 = s__4810;
+                  var s__4846__$1 = s__4846;
                   while (true) {
-                    var temp__4092__auto____$1 = cljs.core.seq.call(null, s__4810__$1);
+                    var temp__4092__auto____$1 = cljs.core.seq.call(null, s__4846__$1);
                     if (temp__4092__auto____$1) {
-                      var s__4810__$2 = temp__4092__auto____$1;
-                      if (cljs.core.chunked_seq_QMARK_.call(null, s__4810__$2)) {
-                        var c__4118__auto__ = cljs.core.chunk_first.call(null, s__4810__$2);
+                      var s__4846__$2 = temp__4092__auto____$1;
+                      if (cljs.core.chunked_seq_QMARK_.call(null, s__4846__$2)) {
+                        var c__4118__auto__ = cljs.core.chunk_first.call(null, s__4846__$2);
                         var size__4119__auto__ = cljs.core.count.call(null, c__4118__auto__);
-                        var b__4812 = cljs.core.chunk_buffer.call(null, size__4119__auto__);
+                        var b__4848 = cljs.core.chunk_buffer.call(null, size__4119__auto__);
                         if (function() {
-                          var i__4811 = 0;
+                          var i__4847 = 0;
                           while (true) {
-                            if (i__4811 < size__4119__auto__) {
-                              var y = cljs.core._nth.call(null, c__4118__auto__, i__4811);
-                              cljs.core.chunk_append.call(null, b__4812, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x, y], null));
-                              var G__4813 = i__4811 + 1;
-                              i__4811 = G__4813;
+                            if (i__4847 < size__4119__auto__) {
+                              var y = cljs.core._nth.call(null, c__4118__auto__, i__4847);
+                              cljs.core.chunk_append.call(null, b__4848, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x, y], null));
+                              var G__4849 = i__4847 + 1;
+                              i__4847 = G__4849;
                               continue;
                             } else {
                               return true;
@@ -23615,13 +23808,13 @@ maze.core.all_locations = function all_locations(size) {
                             break;
                           }
                         }()) {
-                          return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__4812), iter__4809.call(null, cljs.core.chunk_rest.call(null, s__4810__$2)));
+                          return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__4848), iter__4845.call(null, cljs.core.chunk_rest.call(null, s__4846__$2)));
                         } else {
-                          return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__4812), null);
+                          return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__4848), null);
                         }
                       } else {
-                        var y = cljs.core.first.call(null, s__4810__$2);
-                        return cljs.core.cons.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x, y], null), iter__4809.call(null, cljs.core.rest.call(null, s__4810__$2)));
+                        var y = cljs.core.first.call(null, s__4846__$2);
+                        return cljs.core.cons.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x, y], null), iter__4845.call(null, cljs.core.rest.call(null, s__4846__$2)));
                       }
                     } else {
                       return null;
@@ -23629,15 +23822,15 @@ maze.core.all_locations = function all_locations(size) {
                     break;
                   }
                 };
-              }(s__4808__$1, x, xs__4579__auto__, temp__4092__auto__), null, null);
+              }(s__4844__$1, x, xs__4579__auto__, temp__4092__auto__), null, null);
             };
-          }(s__4808__$1, x, xs__4579__auto__, temp__4092__auto__);
+          }(s__4844__$1, x, xs__4579__auto__, temp__4092__auto__);
           var fs__4117__auto__ = cljs.core.seq.call(null, iterys__4116__auto__.call(null, cljs.core.range.call(null, size)));
           if (fs__4117__auto__) {
-            return cljs.core.concat.call(null, fs__4117__auto__, iter__4807.call(null, cljs.core.rest.call(null, s__4808__$1)));
+            return cljs.core.concat.call(null, fs__4117__auto__, iter__4843.call(null, cljs.core.rest.call(null, s__4844__$1)));
           } else {
-            var G__4814 = cljs.core.rest.call(null, s__4808__$1);
-            s__4808__$1 = G__4814;
+            var G__4850 = cljs.core.rest.call(null, s__4844__$1);
+            s__4844__$1 = G__4850;
             continue;
           }
         } else {
@@ -23650,33 +23843,33 @@ maze.core.all_locations = function all_locations(size) {
   return iter__4120__auto__.call(null, cljs.core.range.call(null, size));
 };
 maze.core.all_walls = function all_walls(size, location) {
-  return cljs.core.map.call(null, cljs.core.partial.call(null, cljs.core.conj, cljs.core.PersistentHashSet.EMPTY, location), maze.core.visitable_neighbors.call(null, location, cljs.core.PersistentHashSet.EMPTY, size));
+  return cljs.core.map.call(null, cljs.core.partial.call(null, cljs.core.conj, cljs.core.PersistentHashSet.EMPTY, location), maze.core.unvisited_neighbors.call(null, location, cljs.core.PersistentHashSet.EMPTY, size));
 };
 maze.core.fully_walled_grid = function fully_walled_grid(size) {
   return cljs.core.reduce.call(null, cljs.core.into, cljs.core.PersistentHashSet.EMPTY, cljs.core.map.call(null, cljs.core.partial.call(null, maze.core.all_walls, size), maze.core.all_locations.call(null, size)));
 };
-maze.core.generate_maze = function generate_maze(p__4815) {
+maze.core.generate_maze = function generate_maze(p__4851) {
   while (true) {
-    var map__4817 = p__4815;
-    var map__4817__$1 = cljs.core.seq_QMARK_.call(null, map__4817) ? cljs.core.apply.call(null, cljs.core.hash_map, map__4817) : map__4817;
-    var next_location_fn = cljs.core.get.call(null, map__4817__$1, new cljs.core.Keyword(null, "next-location-fn", "next-location-fn", 4482120056), maze.core.random_visitable_neighbor);
-    var size = cljs.core.get.call(null, map__4817__$1, new cljs.core.Keyword(null, "size", "size", 1017434995));
-    var doors = cljs.core.get.call(null, map__4817__$1, new cljs.core.Keyword(null, "doors", "doors", 1109673463));
-    var visited = cljs.core.get.call(null, map__4817__$1, new cljs.core.Keyword(null, "visited", "visited", 1480664732));
-    var path = cljs.core.get.call(null, map__4817__$1, new cljs.core.Keyword(null, "path", "path", 1017337751));
+    var map__4853 = p__4851;
+    var map__4853__$1 = cljs.core.seq_QMARK_.call(null, map__4853) ? cljs.core.apply.call(null, cljs.core.hash_map, map__4853) : map__4853;
+    var next_location_fn = cljs.core.get.call(null, map__4853__$1, new cljs.core.Keyword(null, "next-location-fn", "next-location-fn", 4482120056), maze.core.random_visitable_neighbor);
+    var size = cljs.core.get.call(null, map__4853__$1, new cljs.core.Keyword(null, "size", "size", 1017434995));
+    var doors = cljs.core.get.call(null, map__4853__$1, new cljs.core.Keyword(null, "doors", "doors", 1109673463));
+    var visited = cljs.core.get.call(null, map__4853__$1, new cljs.core.Keyword(null, "visited", "visited", 1480664732));
+    var path = cljs.core.get.call(null, map__4853__$1, new cljs.core.Keyword(null, "path", "path", 1017337751));
     var temp__4090__auto__ = cljs.core.peek.call(null, path);
     if (cljs.core.truth_(temp__4090__auto__)) {
       var current_location = temp__4090__auto__;
       var temp__4090__auto____$1 = next_location_fn.call(null, current_location, visited, size);
       if (cljs.core.truth_(temp__4090__auto____$1)) {
         var next_location = temp__4090__auto____$1;
-        var G__4818 = new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "path", "path", 1017337751), cljs.core.conj.call(null, path, next_location), new cljs.core.Keyword(null, "visited", "visited", 1480664732), cljs.core.conj.call(null, visited, current_location), new cljs.core.Keyword(null, "doors", "doors", 1109673463), cljs.core.conj.call(null, doors, cljs.core.PersistentHashSet.fromArray([next_location, current_location], true)), new cljs.core.Keyword(null, "size", "size", 
+        var G__4854 = new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "path", "path", 1017337751), cljs.core.conj.call(null, path, next_location), new cljs.core.Keyword(null, "visited", "visited", 1480664732), cljs.core.conj.call(null, visited, current_location), new cljs.core.Keyword(null, "doors", "doors", 1109673463), cljs.core.conj.call(null, doors, cljs.core.PersistentHashSet.fromArray([next_location, current_location], true)), new cljs.core.Keyword(null, "size", "size", 
         1017434995), size, new cljs.core.Keyword(null, "next-location-fn", "next-location-fn", 4482120056), next_location_fn], null);
-        p__4815 = G__4818;
+        p__4851 = G__4854;
         continue;
       } else {
-        var G__4819 = new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "path", "path", 1017337751), cljs.core.pop.call(null, path), new cljs.core.Keyword(null, "visited", "visited", 1480664732), cljs.core.conj.call(null, visited, current_location), new cljs.core.Keyword(null, "doors", "doors", 1109673463), doors, new cljs.core.Keyword(null, "size", "size", 1017434995), size, new cljs.core.Keyword(null, "next-location-fn", "next-location-fn", 4482120056), next_location_fn], null);
-        p__4815 = G__4819;
+        var G__4855 = new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "path", "path", 1017337751), cljs.core.pop.call(null, path), new cljs.core.Keyword(null, "visited", "visited", 1480664732), cljs.core.conj.call(null, visited, current_location), new cljs.core.Keyword(null, "doors", "doors", 1109673463), doors, new cljs.core.Keyword(null, "size", "size", 1017434995), size, new cljs.core.Keyword(null, "next-location-fn", "next-location-fn", 4482120056), next_location_fn], null);
+        p__4851 = G__4855;
         continue;
       }
     } else {
@@ -23685,116 +23878,36 @@ maze.core.generate_maze = function generate_maze(p__4815) {
     break;
   }
 };
-goog.provide("maze.draw");
-goog.require("cljs.core");
-goog.require("maze.core");
-goog.require("maze.core");
-maze.draw.maze_size_in_cells = 20;
-maze.draw.cell_size_in_pixels = 25;
-maze.draw.maze_size_in_pixels = maze.draw.maze_size_in_cells * maze.draw.cell_size_in_pixels;
-maze.draw.wall_width_in_pixels = 2;
-maze.draw.make_context = function make_context() {
-  var canvas = document.getElementById("maze-canvas");
-  var context = canvas.getContext("2d");
-  canvas.width = maze.draw.maze_size_in_pixels;
-  canvas.height = maze.draw.maze_size_in_pixels;
-  context.fillStyle = "rgb(0, 0, 0)";
-  context.lineWidth = maze.draw.wall_width_in_pixels;
-  return context;
-};
-maze.draw.line = function line(p__4820) {
-  var vec__4825 = p__4820;
-  var vec__4826 = cljs.core.nth.call(null, vec__4825, 0, null);
-  var x1 = cljs.core.nth.call(null, vec__4826, 0, null);
-  var y1 = cljs.core.nth.call(null, vec__4826, 1, null);
-  var vec__4827 = cljs.core.nth.call(null, vec__4825, 1, null);
-  var x2 = cljs.core.nth.call(null, vec__4827, 0, null);
-  var y2 = cljs.core.nth.call(null, vec__4827, 1, null);
-  var start_point_x = function() {
-    var x__3710__auto__ = x1;
-    var y__3711__auto__ = x2;
-    return x__3710__auto__ > y__3711__auto__ ? x__3710__auto__ : y__3711__auto__;
-  }();
-  var start_point_y = function() {
-    var x__3710__auto__ = y1;
-    var y__3711__auto__ = y2;
-    return x__3710__auto__ > y__3711__auto__ ? x__3710__auto__ : y__3711__auto__;
-  }();
-  var cells_horizontally_adjacent_QMARK_ = cljs.core._EQ_.call(null, x1, x2);
-  var vec__4828 = cells_horizontally_adjacent_QMARK_ ? new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [start_point_x + 1, start_point_y], null) : new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [start_point_x, start_point_y + 1], null);
-  var end_point_x = cljs.core.nth.call(null, vec__4828, 0, null);
-  var end_point_y = cljs.core.nth.call(null, vec__4828, 1, null);
-  return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "x1", "x1", 1013908011), start_point_x, new cljs.core.Keyword(null, "y1", "y1", 1013908042), start_point_y, new cljs.core.Keyword(null, "x2", "x2", 1013908012), end_point_x, new cljs.core.Keyword(null, "y2", "y2", 1013908043), end_point_y], null);
-};
-maze.draw.draw_line = function draw_line(p__4829, context) {
-  var map__4832 = p__4829;
-  var map__4832__$1 = cljs.core.seq_QMARK_.call(null, map__4832) ? cljs.core.apply.call(null, cljs.core.hash_map, map__4832) : map__4832;
-  var y2 = cljs.core.get.call(null, map__4832__$1, new cljs.core.Keyword(null, "y2", "y2", 1013908043));
-  var x2 = cljs.core.get.call(null, map__4832__$1, new cljs.core.Keyword(null, "x2", "x2", 1013908012));
-  var y1 = cljs.core.get.call(null, map__4832__$1, new cljs.core.Keyword(null, "y1", "y1", 1013908042));
-  var x1 = cljs.core.get.call(null, map__4832__$1, new cljs.core.Keyword(null, "x1", "x1", 1013908011));
-  var G__4833 = context;
-  G__4833.beginPath();
-  G__4833.moveTo(x1 * maze.draw.cell_size_in_pixels, y1 * maze.draw.cell_size_in_pixels);
-  G__4833.lineTo(x2 * maze.draw.cell_size_in_pixels, y2 * maze.draw.cell_size_in_pixels);
-  G__4833.stroke();
-  return G__4833;
-};
-maze.draw.start = function start() {
-  var walls = maze.core.generate_maze.call(null, new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "visited", "visited", 1480664732), cljs.core.PersistentHashSet.EMPTY, new cljs.core.Keyword(null, "path", "path", 1017337751), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [0, 0], null)], null), new cljs.core.Keyword(null, "doors", "doors", 1109673463), cljs.core.PersistentHashSet.EMPTY, 
-  new cljs.core.Keyword(null, "size", "size", 1017434995), maze.draw.maze_size_in_cells], null));
-  var lines = cljs.core.map.call(null, maze.draw.line, cljs.core.map.call(null, cljs.core.seq, walls));
-  var context = maze.draw.make_context.call(null);
-  var seq__4838 = cljs.core.seq.call(null, lines);
-  var chunk__4839 = null;
-  var count__4840 = 0;
-  var i__4841 = 0;
-  while (true) {
-    if (i__4841 < count__4840) {
-      var line = cljs.core._nth.call(null, chunk__4839, i__4841);
-      maze.draw.draw_line.call(null, line, context);
-      var G__4842 = seq__4838;
-      var G__4843 = chunk__4839;
-      var G__4844 = count__4840;
-      var G__4845 = i__4841 + 1;
-      seq__4838 = G__4842;
-      chunk__4839 = G__4843;
-      count__4840 = G__4844;
-      i__4841 = G__4845;
-      continue;
+maze.core.delay_between_iterations = 20;
+maze.core.solve_maze = function solve_maze(p__4856) {
+  var map__4858 = p__4856;
+  var map__4858__$1 = cljs.core.seq_QMARK_.call(null, map__4858) ? cljs.core.apply.call(null, cljs.core.hash_map, map__4858) : map__4858;
+  var update_fn = cljs.core.get.call(null, map__4858__$1, new cljs.core.Keyword(null, "update-fn", "update-fn", 3359625150), function(map__4858, map__4858__$1) {
+    return function() {
+      return cljs.core.List.EMPTY;
+    };
+  }(map__4858, map__4858__$1));
+  var size = cljs.core.get.call(null, map__4858__$1, new cljs.core.Keyword(null, "size", "size", 1017434995));
+  var walls = cljs.core.get.call(null, map__4858__$1, new cljs.core.Keyword(null, "walls", "walls", 1126800219));
+  var visited = cljs.core.get.call(null, map__4858__$1, new cljs.core.Keyword(null, "visited", "visited", 1480664732));
+  var path = cljs.core.get.call(null, map__4858__$1, new cljs.core.Keyword(null, "path", "path", 1017337751));
+  var current_location = cljs.core.peek.call(null, path);
+  update_fn.call(null, new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null, "walls", "walls", 1126800219), walls, new cljs.core.Keyword(null, "path", "path", 1017337751), path, new cljs.core.Keyword(null, "visited", "visited", 1480664732), visited], null));
+  if (cljs.core._EQ_.call(null, current_location, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [size - 1, size - 1], null))) {
+    return path;
+  } else {
+    var temp__4090__auto__ = cljs.core.rand_nth.call(null, cljs.core.seq.call(null, maze.core.reachable_neighbors.call(null, current_location, visited, walls, size)));
+    if (cljs.core.truth_(temp__4090__auto__)) {
+      var next_location = temp__4090__auto__;
+      return setTimeout(function() {
+        return solve_maze.call(null, new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "path", "path", 1017337751), cljs.core.conj.call(null, path, next_location), new cljs.core.Keyword(null, "visited", "visited", 1480664732), cljs.core.conj.call(null, visited, current_location), new cljs.core.Keyword(null, "walls", "walls", 1126800219), walls, new cljs.core.Keyword(null, "size", "size", 1017434995), size, new cljs.core.Keyword(null, "update-fn", "update-fn", 3359625150), update_fn], 
+        null));
+      }, maze.core.delay_between_iterations);
     } else {
-      var temp__4092__auto__ = cljs.core.seq.call(null, seq__4838);
-      if (temp__4092__auto__) {
-        var seq__4838__$1 = temp__4092__auto__;
-        if (cljs.core.chunked_seq_QMARK_.call(null, seq__4838__$1)) {
-          var c__4151__auto__ = cljs.core.chunk_first.call(null, seq__4838__$1);
-          var G__4846 = cljs.core.chunk_rest.call(null, seq__4838__$1);
-          var G__4847 = c__4151__auto__;
-          var G__4848 = cljs.core.count.call(null, c__4151__auto__);
-          var G__4849 = 0;
-          seq__4838 = G__4846;
-          chunk__4839 = G__4847;
-          count__4840 = G__4848;
-          i__4841 = G__4849;
-          continue;
-        } else {
-          var line = cljs.core.first.call(null, seq__4838__$1);
-          maze.draw.draw_line.call(null, line, context);
-          var G__4850 = cljs.core.next.call(null, seq__4838__$1);
-          var G__4851 = null;
-          var G__4852 = 0;
-          var G__4853 = 0;
-          seq__4838 = G__4850;
-          chunk__4839 = G__4851;
-          count__4840 = G__4852;
-          i__4841 = G__4853;
-          continue;
-        }
-      } else {
-        return null;
-      }
+      return setTimeout(function() {
+        return solve_maze.call(null, new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "path", "path", 1017337751), cljs.core.pop.call(null, path), new cljs.core.Keyword(null, "visited", "visited", 1480664732), cljs.core.conj.call(null, visited, current_location), new cljs.core.Keyword(null, "walls", "walls", 1126800219), walls, new cljs.core.Keyword(null, "size", "size", 1017434995), size, new cljs.core.Keyword(null, "update-fn", "update-fn", 3359625150), update_fn], null));
+      }, maze.core.delay_between_iterations);
     }
-    break;
   }
 };
 goog.provide("game_of_life.draw");
@@ -23913,4 +24026,16 @@ game_of_life.draw.start_glider = function start_glider() {
 };
 game_of_life.draw.start_random = function start_random() {
   return game_of_life.draw.start.call(null, game_of_life.draw.random_cells.call(null));
+};
+goog.provide("maze.top_level");
+goog.require("cljs.core");
+goog.require("maze.draw");
+goog.require("maze.draw");
+goog.require("maze.core");
+goog.require("maze.core");
+maze.top_level.maze = maze.core.generate_maze.call(null, new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "visited", "visited", 1480664732), cljs.core.PersistentHashSet.EMPTY, new cljs.core.Keyword(null, "path", "path", 1017337751), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [0, 0], null)], null), new cljs.core.Keyword(null, "doors", "doors", 1109673463), 
+cljs.core.PersistentHashSet.EMPTY, new cljs.core.Keyword(null, "size", "size", 1017434995), maze.draw.maze_size], null));
+maze.top_level.start = function start() {
+  return maze.core.solve_maze.call(null, new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "path", "path", 1017337751), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [0, 0], null)], null), new cljs.core.Keyword(null, "visited", "visited", 1480664732), cljs.core.PersistentHashSet.EMPTY, new cljs.core.Keyword(null, "walls", "walls", 1126800219), maze.top_level.maze, 
+  new cljs.core.Keyword(null, "size", "size", 1017434995), maze.draw.maze_size, new cljs.core.Keyword(null, "update-fn", "update-fn", 3359625150), cljs.core.partial.call(null, maze.draw.update_canvas, maze.draw.make_context.call(null))], null));
 };
