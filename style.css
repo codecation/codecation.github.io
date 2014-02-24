@@ -15,7 +15,7 @@ body {
   text-align: center;
 }
 
-p, h1, footer, figcaption {
+p, h1, footer {
   padding: 10px 10px;
 }
 
@@ -26,12 +26,13 @@ p, footer, .thing-we-did {
 
 .thing-we-did, img, canvas, body {
   width: 500px;
-  margin: 10px auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .thing-we-did {
   background: #fff;
- }
+}
 
 h1 {
   color: #111;
@@ -58,6 +59,10 @@ footer {
 
 footer a {
   color: #999;
+}
+
+figcaption {
+  padding: 20px 10px;
 }
 
 figcaption span {
