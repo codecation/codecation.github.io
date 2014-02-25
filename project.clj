@@ -10,7 +10,7 @@
             [com.cemerick/austin "0.1.4"]]
   :profiles {:dev {:plugins [[com.cemerick/clojurescript.test "0.2.3-SNAPSHOT"]]}}
   :cljsbuild {
-              :builds [{:source-paths ["../maze/src-cljs" "../game-of-life/src-cljs"]
+              :builds [{:source-paths ["../maize/src-cljs" "../game-of-life/src-cljs"]
                         :compiler {
                                    :output-to "main.js"
                                    :optimizations :advanced}}]})
