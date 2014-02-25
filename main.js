@@ -6261,7 +6261,7 @@ function wf(a) {
 }
 var xf = new vf(tf.a(0), 0);
 function yf() {
-  var a = (new Date).valueOf() + 1, b = wf(a), b = r(r(b) ? b.key < a + 10 : b) ? b.F : null;
+  var a = (new Date).valueOf() + 10, b = wf(a), b = r(r(b) ? b.key < a + 10 : b) ? b.F : null;
   if (r(b)) {
     return b;
   }
@@ -6270,7 +6270,7 @@ function yf() {
   setTimeout(function() {
     xf.remove(a);
     return c.pb();
-  }, 1);
+  }, 10);
   return c;
 }
 ;var zf = function() {
