@@ -13,5 +13,4 @@
               :builds [{:source-paths ["../maze/src-cljs" "../game-of-life/src-cljs"]
                         :compiler {
                                    :output-to "main.js"
-                                   :optimizations :whitespace
-                                   :pretty-print true}}]})
+                                   :optimizations :advanced}}]})
