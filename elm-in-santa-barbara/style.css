@@ -19,15 +19,19 @@ p, h1, footer {
   padding: 10px 10px;
 }
 
-p, footer {
+p, footer, .thing-we-did {
   border-top: 2px solid #ddd;
   border-bottom: 2px solid #ddd;
 }
 
-img, canvas, body {
+.thing-we-did, img, canvas, body {
   width: 500px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.thing-we-did {
+  background: #fff;
 }
 
 h1 {
@@ -44,13 +48,8 @@ a:hover {
   color: #111;
 }
 
-ul {
-  margin: 20px 0;
-  list-style: none;
-}
-
-li {
-  padding-bottom: 20px;
+p {
+  margin-bottom: 20px;
 }
 
 footer {
@@ -61,16 +60,28 @@ footer a {
   color: #999;
 }
 
+figcaption {
+  padding: 20px 10px;
+}
+
+figcaption span {
+  font-weight: bold;
+}
+
+img {
+  display: block;
+}
+
 @media screen and (max-width: 500px) {
   h1 {
     font-size: 40px;
   }
 
-  footer {
+  figcaption, footer {
     font-size: 14px;
   }
 
-  img, canvas, body  {
+  .thing-we-did, img, canvas, body  {
     width: 100%;
   }
 }
