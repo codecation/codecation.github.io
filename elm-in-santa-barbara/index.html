@@ -19,10 +19,17 @@
       <a href="https://goo.gl/maps/w8vHiCxffHw">Santa Barbara</a>
     </p>
 
-    <p>stripe + clearbit</p>
-    <p>pong</p>
-    <p>image generation (elm)</p>
-    <p>image generation (clojurescript)</p>
+    <h4>Stripe + Clearbit</h4>
+    <p>We brought some clearbit-enriched Stripe data into Google Sheets and had fun with the "explore" feature, poking around different correlations. We made a landing page for a potential product that did about the same thing, but didn't get much of a response. After realizing neither of us were too psyched about the project, we ditched it and decided to make a game in Elm.</p>
+
+    <h4>PongRoulette</h4>
+    <p>We took an Elm example app and began to add on to it while we learned how everything worked — the goal: multiplayer pong over WebSockets, where you could see the other player via WebRTC. We ran into plenty of issues around speed (updating the UI, receiving messages, passing information between Elm and JS), and once we were stuck in tedious details we decided to switch to another idea from the notebook.</p>
+
+    <h4>Genetic Image Generation (in Elm)</h4>
+    <p>This is the one we stuck with — we implemented this <a href="https://rogeralsing.com/2008/12/07/genetic-programming-evolution-of-mona-lisa/">genetic image generation</a> algorithm in Elm, guided also by <a href="http://chriscummins.cc/s/genetics/">this excellent JS implementation</a>. There were many failed attempts and language snaggles, but we eventually got to a solution that works well.</p>
+
+    <h4>Genetic Image Generation (in ClojureScript)</h4>
+    <p>Frustrated by the difficulty of using randomness in Elm, and the difficulty of creating memory-only canvas elements, we tried re-writing our solution in ClojureScript. This also had its problems and we quickly missed the typing and error messages from Elm. We abandoned this to improve and "finish" the Elm implementation.</p>
 
     <img src='photos/trees.jpg' />
 
