@@ -45,7 +45,13 @@
 
     <iframe style="margin: 1rem 0 1rem -50px; border: 7px solid #fff; border-radius: 1rem;" frameborder="0" width="600" height="400" src="https://codecation.github.io/barb/"></iframe>
 
-    <p>(Note: currently only works on retina screens...)</p>
+    <p>What you're seeing is a collection of 125 randomly-generated polygons.
+    With every iteration, we mutate some of them at random and see if our
+    mutant is more similar to the goal image than previously. If so, we save
+    that mutation and mutate it. If not, we just try again from our previous
+    best.</p>
+
+    <p>(Note: this demo currently only works on retina screens due to a frustrating big around pixel densities. If you're seeing only green on the right, that's the issue.)</p>
 
     <img src='photos/jack_progress.jpg' />
 
