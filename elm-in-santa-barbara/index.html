@@ -35,16 +35,23 @@
     <p>For our first task, we decided to create a multi-browser version of Pong. We started with this <a href="http://elm-lang.org:1234/examples/pong">already-written single-player version</a>. Our goal was to use WebSockets to send the paddle information between browsers. We did indeed get a simple version working, but quickly realized our implementation (keeping states on both clients and trying to keep them in sync) was inherently flawed. The next logical step would have been to move logic and state to the server, but we wanted to keep learning Elm (client-side only), so we switched projects once again.</p>
 
     <h4>Genetic Image Generation (in Elm)</h4>
-    <p>This is the one we stuck with — we implemented this <a href="https://rogeralsing.com/2008/12/07/genetic-programming-evolution-of-mona-lisa/">genetic image generation</a> algorithm in Elm, guided also by <a href="http://chriscummins.cc/s/genetics/">this excellent JS implementation</a>. There were many failed attempts and language snaggles, but we eventually got to a solution that works well.</p>
+    <p>Finally, we found the project that we'd spend the rest of our trip on.</p>
+
+    <p>Inspired by <a href="http://chriscummins.cc/s/genetics/">this excellent JavaScript implementation</a>, we decided to build an Elm version.</p>
+
+    <p>This proved to be tougher than we first imagined (duh). Some particularly thorny bits were handling the randomization and making sure the UI actually updated while we were in our computation loop.</p>
+
+    <p>You can see how we handled these issues in <a href="https://github.com/codecation/barb">the source code</a>, but be warned that you're looking at how two relative newcomers solved these issues.</p>
 
     <iframe style="margin: 1rem 0 1rem -50px; border: 7px solid #fff; border-radius: 1rem;" frameborder="0" width="600" height="400" src="https://codecation.github.io/barb/"></iframe>
 
+    <p>(Note: currently only works on retina screens...)</p>
+
     <img src='photos/jack_progress.jpg' />
 
-    <p><a href="https://github.com/codecation/barb">View the source on GitHub</a></p>
-
     <h4>Genetic Image Generation (in ClojureScript)</h4>
-    <p>Frustrated by the difficulty of using randomness in Elm, and the difficulty of creating memory-only canvas elements, we tried re-writing our solution in ClojureScript. This also had its problems and we quickly missed the typing and error messages from Elm. We abandoned this to improve and "finish" the Elm implementation.</p>
+
+    <p>Frustrated by the difficulty of using randomness in Elm, and the difficulty of creating memory-only canvas elements, we tried re-writing <a href="https://github.com/codecation/cljs-barb">our solution in ClojureScript</a>. This is actually still in WIP status. While ClojureScript was delightfully permissive in letting us interop with JavaScript directly, we deeply missed the strong typing and quality error messages from Elm. Before finishing, we decided to return to our Elm implementation for some final improvements.</p>
 
     <img src='photos/trees.jpg' />
 
@@ -55,7 +62,7 @@
 
     <img src='photos/edwin_looking_at_water.jpg' />
     <figcaption>
-      Edwin stared intently at the beach wondering why Elm markup is so bad.
+      Edwin stared intently at the beach wondering why Elm's markup functions are so frustrating.
     </figcaption>
 
     <img src='photos/ben_on_couch.jpg' />
@@ -77,17 +84,12 @@
 
     <img src='photos/image_generation_in_bed.jpg' />
     <figcaption>
-    We spent many quiet moments at night <a target="_blank" href="https://www.youtube.com/watch?v=m24DPDKZ4zA">shouting "FUCK"</a> and inserting the keyword Random wherever we hadn't tried yet.
+      We spent many quiet moments at night <a target="_blank" href="https://www.youtube.com/watch?v=m24DPDKZ4zA">shouting "FUCK"</a> and inserting the keyword Random wherever we hadn't tried yet.
     </figcaption>
 
     <img src='photos/ben_on_chair.jpg' />
     <figcaption>
-      After 20 minutes Ben discovered that you need to run JS after document load to access the document.
-    </figcaption>
-
-    <img src='photos/ben_walking_normally.jpg' />
-    <figcaption>
-      He would get restless, and it was a full moon (it wasn't a full moon.)
+      After 20 minutes Ben discovered that you need to run JavaScript after document load to access the document.
     </figcaption>
 
     <img src='photos/ben_in_courtyard.jpg' />
