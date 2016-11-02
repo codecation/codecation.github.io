@@ -34,6 +34,17 @@ p, footer, .thing-we-did {
   background: #fff;
 }
 
+.longform {
+  text-align: left;
+  border: 0;
+}
+
+.longform iframe { margin: 1rem 0 1rem -50px; }
+
+.longform h1, .longform h2, .longform h3, .longform h4 { text-align: center; }
+
+.longform * { border: 0; }
+
 h1 {
   color: #111;
   font-family: monospace;
