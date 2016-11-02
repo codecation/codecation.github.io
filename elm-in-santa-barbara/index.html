@@ -19,11 +19,20 @@
       <a href="https://goo.gl/maps/w8vHiCxffHw">Santa Barbara</a>
     </p>
 
-    <h4>Stripe + Clearbit</h4>
-    <p>We brought some clearbit-enriched Stripe data into Google Sheets and had fun with the "explore" feature, poking around different correlations. We made a landing page for a potential product that did about the same thing, but didn't get much of a response. After realizing neither of us were too psyched about the project, we ditched it and decided to make a game in Elm.</p>
+    <p>This Codecation had a lot of dodging and weaving. It took a few solid days to figure out what we wanted to work on. Here's the path we took.</p>
 
-    <h4>PongRoulette</h4>
-    <p>We took an Elm example app and began to add on to it while we learned how everything worked — the goal: multiplayer pong over WebSockets, where you could see the other player via WebRTC. We ran into plenty of issues around speed (updating the UI, receiving messages, passing information between Elm and JS), and once we were stuck in tedious details we decided to switch to another idea from the notebook.</p>
+    <h4>Enriching Customer Data</h4>
+    <p>First, a product idea: what if you could learn a bunch about your customers without surveying them?</p>
+
+    <p>We took a collection of <a href="https://formkeep.com">FormKeep</a> customer emails and fed them into <a href="http://clearbit.com">Clearbit's</a> data enrichment service.</p>
+
+    <p>We then imported that output into Google Sheets to use its "explore" feature, which automatically generates interesting graphs about your data. Turns out, there were some interesting things in there! Stuff like most common industries served, average customer size, etc.</p>
+
+    <p>We made a landing page for a potential product that would do this automatically for non-technical types. We got a few initial emails, but in the end, neither of us were really excited about the project, so we ditched it and turned our attention to a lovely little language called <a href="http://elm-lang.org">Elm</a>.</p>
+
+    <h4>Multi-player Pong</h4>
+
+    <p>For our first task, we decided to create a multi-browser version of Pong. We started with this <a href="http://elm-lang.org:1234/examples/pong">already-written single-player version</a>. Our goal was to use WebSockets to send the paddle information between browsers. We did indeed get a simple version working, but quickly realized our implementation (keeping states on both clients and trying to keep them in sync) was inherently flawed. The next logical step would have been to move logic and state to the server, but we wanted to keep learning Elm (client-side only), so we switched projects once again.</p>
 
     <h4>Genetic Image Generation (in Elm)</h4>
     <p>This is the one we stuck with — we implemented this <a href="https://rogeralsing.com/2008/12/07/genetic-programming-evolution-of-mona-lisa/">genetic image generation</a> algorithm in Elm, guided also by <a href="http://chriscummins.cc/s/genetics/">this excellent JS implementation</a>. There were many failed attempts and language snaggles, but we eventually got to a solution that works well.</p>
